@@ -1,0 +1,14 @@
+{
+  "name": "transmission-nodejs",
+  "version": "1.0.0",
+  "description": "Transmission des donnees dun bd vers une autre",
+  "main": "Serveur.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Michael Turcotte",
+  "license": "ISC",
+  "dependencies": {
+    "socket.io": "^2.1.1"
+  }
+}
