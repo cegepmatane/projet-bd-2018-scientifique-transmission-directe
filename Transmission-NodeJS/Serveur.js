@@ -6,7 +6,7 @@ var urlDb = "mongodb://localhost:27017"
 function init() {
 	var serveur = http.createServer(function (requete, reponse) {
 		reponse.writeHead(200);
-		reponse.end('Allo les clients');
+		reponse.end('Valentin :@');
 	}).listen(5000);
 
 	console.log("Le serveur est en ligne !");
