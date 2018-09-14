@@ -1,0 +1,15 @@
+Guide d'installation et configuration du serveur Linux (Debian 9)
+    Ajout d'un utilisateur
+        # adduser scientifique
+        Enter new UNIX password: jemappelroot
+        Retype new UNIX password: jemappelroot
+        ...
+        Enter the new value, or press ENTER for the default
+            Full Name[]: scientifique
+            Room Number[]:
+            Work Phone[]:
+            Home Phone[]:
+            Other[]:
+        Is the information correct? [Y/n] y
+    Ajout du nouveau utilisateur en tant que root
+        sudo usermod -G root scientifique
