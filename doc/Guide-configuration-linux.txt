@@ -11,5 +11,8 @@ Guide d'installation et configuration du serveur Linux (Debian 9)
             Home Phone[]:
             Other[]:
         Is the information correct? [Y/n] y
-    Ajout du nouveau utilisateur en tant que root
-        sudo usermod -G root scientifique
+    Ajout du nouveau utilisateur en tant que sudo
+        sudo usermod -aG sudo scientifique
+    Creation du dossier contenant le script NodeJS
+        mkdir Transmission-NodeJS
+        
