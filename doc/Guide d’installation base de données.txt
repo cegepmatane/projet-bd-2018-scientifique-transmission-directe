@@ -1,0 +1,16 @@
+Guide d’installation
+Base de données MongoDB
+Sous debian 9
+
+Installation du package:
+sudo apt-get install -y mongodb
+
+Entrer le mot de passe de l’utilisateur actif.
+
+Démarrer le service mongoDB:
+sudo systemctl start mongodb
+
+Installation du package nodeJs MongoDB:
+en étant dans le dossier du projet nodeJs:
+npm install mongodb
+
