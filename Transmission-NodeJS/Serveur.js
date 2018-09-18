@@ -1,24 +1,34 @@
 var http = require('http');
-var io = require('socket.io');
+var io = require('socket.io')
 var MongoClient = require('mongodb').MongoClient;
 var urlDb = "mongodb://localhost:27017"
 
 function init() {
 	var serveur = http.createServer(function (requete, reponse) {
-		reponse.writeHead(200);
-		reponse.end('Valentin :@');
-	}).listen(5000);
+		//reponse.writeHead(200);
+		//reponse.end('Valentin :@');
+	}).listen(8080);
 
 	console.log("Le serveur est en ligne !");
 
 	var priseEntreeSortie = io.listen(serveur);
 	priseEntreeSortie.on('connection', gererConnexion);
-	
+	priseEntreeSortie.on('disconnect', gererDeconnexion)	
+}
+
+function testeSocket(socket){
+	console.log("le socket se rend bg ;)");
 }
 
 function gererConnexion(connexion) {
 	console.log("Une personne est connectee");
 	connexion.emit('salutation', JSON.stringify("Bonjour !"));
+	connexion.on('aaa', testeSocket);
+}
+
+function gererDeconnexion(connexion){
+	console.log("Une personne s'est deconnectee");
+	connexion.emit('adieu', JSON.stringify("Farewell my friend !"));
 }
 
 function enregisterDonnees() {
@@ -35,8 +45,8 @@ function enregisterDonnees() {
 	})
 	lireDonnes();
 }
-function lireDonnes()
-{
+
+function lireDonnes(){
 	MongoClient.connect(urlDb, { useNewUrlParser: true }, function(err, db) {
 		if (err) throw err;
 		var dbo = db.db("test");
@@ -48,6 +58,5 @@ function lireDonnes()
 		});
 	  });
 }
-
 
 init();
