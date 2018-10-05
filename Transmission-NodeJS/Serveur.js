@@ -13,18 +13,26 @@ function init() {
 
 	var priseEntreeSortie = io.listen(serveur);
 	priseEntreeSortie.on('connection', gererConnexion);
-	priseEntreeSortie.on('disconnect', gererDeconnexion)	
-}
-
-function testeSocket(socket){
-	console.log("le socket se rend bg ;)");
+	priseEntreeSortie.on('disconnect', gererDeconnexion);
 }
 
 function gererConnexion(connexion) {
 	console.log("Une personne est connectee");
 	connexion.emit('salutation', JSON.stringify("Bonjour !"));
 	connexion.on('aaa', testeSocket);
+	connexion.on('envoyer-donnee', envoyerDonnee);
 }
+
+function testeSocket(socket){
+	console.log("le socket se rend bg ;)" + socket);
+}
+
+function envoyerDonnee(socket)
+{
+	this.emit('donneeBouee', JSON.stringify("Les donnees des bouer seront ici!"));
+}
+
+
 
 function gererDeconnexion(connexion){
 	console.log("Une personne s'est deconnectee");
@@ -60,3 +68,4 @@ function lireDonnes(){
 }
 
 init();
+//enregisterDonnees();
