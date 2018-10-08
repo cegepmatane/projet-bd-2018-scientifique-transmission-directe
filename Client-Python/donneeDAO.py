@@ -1,7 +1,7 @@
 from pymongo import MongoClient
 
 
-def writeValues(json):
+def insererValeur(json):
     try : 
         conn = MongoClient()
         print("connected")
@@ -17,7 +17,7 @@ def writeValues(json):
         print("error")
         
         
-def getValues():
+def recupererValeur():
     try : 
         conn = MongoClient()
         print("connected")
@@ -27,11 +27,11 @@ def getValues():
         collection = db.donneeBouee
 
         curseur = collection.find()
-        #collection.delete_many()
 
         resultString="" 
         for enregistrement in curseur :
             resultString+=str(enregistrement)
+            print(enregistrement)
             
         #curseur.close()
         collection.drop()

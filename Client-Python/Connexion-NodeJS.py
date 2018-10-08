@@ -11,11 +11,15 @@ def on_send():
 
 
 connexion = SocketIO('vps202433.vps.ovh.ca', 8080, LoggingNamespace)
-#print('hello')
+#connexion = SocketIO('vps202845.vps.ovh.ca', 8080, LoggingNamespace)
 connexion.on('salutation', on_connect)
 while True:
-    StringToSend = donneeDAO.getValues()
-    print(StringToSend)
-    connexion.emit('aaa', json.dumps(StringToSend))
+    String = donneeDAO.recupererValeur()
+    StringAEnvoyer = donneeDAO.recupererValeur()
+    print(json.dumps(StringAEnvoyer))
+    connexion.emit('aaa', json.dumps(StringAEnvoyer))
+    #connexion.emit('aaa', StringAEnvoyer)
     print("sent")
     connexion.wait(0.5)
+
+
