@@ -3,15 +3,16 @@ from pymongo import MongoClient
 
 def insererValeur(json):
     try : 
-        conn = MongoClient()
+        conn = MongoClient() #connection a la base mongodb
         print("connected")
 
-        db = conn.scientifique
-        collection = db.donneeBouee
+        db = conn.scientifique #selection de la base de donnee
+        collection = db.donneeBouee #selection de la collection
+        print("get collection")
 
         #insert json
-        result = collection.insert(json) 
-        print("inserted")
+        result = collection.insert(json) #insertion du json
+        print("inserted ")
 
     except:
         print("error")
@@ -22,23 +23,22 @@ def recupererValeur():
         conn = MongoClient()
         print("connected")
 
-        db = conn.scientifique
+        db = conn.scientifique #selection de la base de donnee
 
-        collection = db.donneeBouee
+        collection = db.donneeBouee #selection de la collection
 
-        curseur = collection.find()
+        curseur = collection.find() #recuperation de toutes les donnees de la collection
+        #collection.delete_many()
 
         resultString="" 
         for enregistrement in curseur :
-            resultString+=str(enregistrement)
-            print(enregistrement)
+            resultString+=str(enregistrement) #formatage des donnees
             
         #curseur.close()
-        collection.drop()
+        collection.drop() #suppression des donnees en local
             
         return str(resultString)
         
     except Exception as e:
     
-        print(e)
-        return("error")
+        return e
