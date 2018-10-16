@@ -14,12 +14,12 @@ connexion = SocketIO('vps202433.vps.ovh.ca', 8080, LoggingNamespace)
 #connexion = SocketIO('vps202845.vps.ovh.ca', 8080, LoggingNamespace)
 connexion.on('salutation', on_connect)
 while True:
-    String = donneeDAO.recupererValeur()
-    StringAEnvoyer = donneeDAO.recupererValeur()
-    print(json.dumps(StringAEnvoyer))
-    connexion.emit('aaa', json.dumps(StringAEnvoyer))
+    stringMongoDB = donneeDAO.recupererValeur()
+    stringAEnvoyer = json.dumps(stringMongoDB)
+    print(stringAEnvoyer)
+    connexion.emit('aaa', stringMongoDB)
     #connexion.emit('aaa', StringAEnvoyer)
     print("sent")
-    connexion.wait(0.5)
+    connexion.wait(0.2)
 
 
