@@ -1,5 +1,7 @@
 var http = require('http');
-var io = require('socket.io')
+var io = require('socket.io');
+DonnesDAO = require('./DonnesDAO.js');
+
 var MongoClient = require('mongodb').MongoClient;
 var urlDb = "mongodb://localhost:27017"
 
