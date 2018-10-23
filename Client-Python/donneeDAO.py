@@ -24,7 +24,6 @@ def recupererValeur():
         print("connected")
 
         db = conn.scientifique #selection de la base de donnee
-
         collection = db.donneeBouee #selection de la collection
 
         curseur = collection.find() #recuperation de toutes les donnees de la collection
@@ -35,10 +34,17 @@ def recupererValeur():
             resultString+=str(enregistrement) #formatage des donnees
             
         #curseur.close()
-        collection.drop() #suppression des donnees en local
             
         return str(resultString)
         
     except Exception as e:
     
         return e
+
+def supprimerDonnee():
+        conn = MongoClient()
+        print("connected")
+        db = conn.scientifique #selection de la base de donnee
+        collection = db.donneeBouee #selection de la collection
+    
+        collection.drop() #suppression des donnees en local
