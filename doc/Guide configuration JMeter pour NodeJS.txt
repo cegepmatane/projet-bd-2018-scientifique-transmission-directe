@@ -1,0 +1,17 @@
+Installer un serveur Debian en machine virtuelle en le conifgurant de la meme maniere que le serveur principal
+
+Installer JMeter (binairies)
+	https://jmeter.apache.org/download_jmeter.cgi
+
+Installer le plugin manager
+	https://jmeter-plugins.org/get/
+	Copier le jar dans apache-jmeter-5.0\lib\ext
+
+Lancer JMeter
+	apache-jmeter-5.0\bin\jmeter.bat -> clic droit -> lancer en administrateur
+	
+Intaller le plugin WebSocket
+	Options -> Plugin Manager -> Available Plugins -> Cocher WebSocket Sampler by Maciej Zaleski -> Apply Changes And Restart JMeter
+	
+Charger le fichier de test de charge
+	File -> Open -> WebSocket-Brutal
