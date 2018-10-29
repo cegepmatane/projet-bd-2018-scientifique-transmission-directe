@@ -1,5 +1,6 @@
 from pymongo import MongoClient
-
+from pprint import pprint
+import json
 
 def insererValeur(json):
     try : 
@@ -26,11 +27,22 @@ def recupererValeur():
         db = conn.scientifique #selection de la base de donnee
         collection = db.donneeBouee #selection de la collection
 
-        curseur = collection.find() #recuperation de toutes les donnees de la collection
-        #collection.delete_many()
-
+        curseur = collection.find({}, {'_id': False}) #recuperation de toutes les donnees de la collection
         resultString="" 
+        l = list(curseur)
+        jsonData = json.dumps(l)
+        print("jsonData")
+        print(jsonData)
+        
+        #collection.find()
+        collection.delete_many(curseur)
+
+        return jsonData
+
+
+
         for enregistrement in curseur :
+            #print(enregistrement)
             resultString+=str(enregistrement) #formatage des donnees
             
         #curseur.close()
@@ -38,7 +50,7 @@ def recupererValeur():
         return str(resultString)
         
     except Exception as e:
-    
+        print(e)
         return e
 
 def supprimerDonnee():

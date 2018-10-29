@@ -18,7 +18,8 @@ connection.on('donnee_recu',lors_donnee_recu)
 while True:
     stringMongoDB = donneeDAO.recupererValeur()
     #stringAEnvoyer = "{"+json.dumps(stringMongoDB)+"}" #transformation du string a envoyer en json
-    stringAEnvoyer = "{"+json.dumps(stringMongoDB)+"}" #transformation du string a envoyer en json
+    #stringAEnvoyer = json.loads(stringMongoDB) #transformation du string a envoyer en json
+    stringAEnvoyer = stringMongoDB #transformation du string a envoyer en json
 
     print(stringAEnvoyer)
 
