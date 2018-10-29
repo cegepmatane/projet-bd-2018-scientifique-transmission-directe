@@ -34,8 +34,8 @@ def recupererValeur():
         print("jsonData")
         print(jsonData)
         
-        #collection.find()
-        collection.delete_many(curseur)
+        #curseurDestruction = collection.find()
+        #collection.delete_many(curseurDestruction)
 
         return jsonData
 

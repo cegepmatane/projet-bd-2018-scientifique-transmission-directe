@@ -23,7 +23,7 @@ while True:
 
     print(stringAEnvoyer)
 
-    connection.emit('aaa', stringMongoDB) #envoie du json
+    connection.emit('aaa', str(stringMongoDB)) #envoie du json
 
     print("sent")
 
