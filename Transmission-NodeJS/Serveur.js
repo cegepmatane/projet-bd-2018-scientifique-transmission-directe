@@ -1,7 +1,6 @@
 var http = require('http');
 var io = require('socket.io');
-DonnesDAO = require('./DonnesDAO.js');
-
+DonneesDAO = require('./DonneesDAO.js');
 var MongoClient = require('mongodb').MongoClient;
 var urlDb = "mongodb://localhost:27017"
 
@@ -21,12 +20,17 @@ function init() {
 function gererConnexion(connexion) {
 	console.log("Une personne est connectee");
 	connexion.emit('salutation', JSON.stringify("Bonjour !"));
-	connexion.on('aaa', testeSocket);
+	connexion.on('aaa', recupererDonneesCapteur);
 	connexion.on('envoyer-donnee', envoyerDonnee);
 }
 
-function testeSocket(socket){
-	console.log("le socket se rend bg ;)" + socket);
+function recupererDonneesCapteur(connexion){
+	listeDonnees = JSON.parse(connexion);
+	for(var i = 0; i< listeDonnees.length; i++)
+        {
+			var donnees = new DonneesDAO(listeDonnees[i]);
+			donnees.enregistrerDonnees();		
+        }
 }
 
 function envoyerDonnee(socket)
@@ -34,14 +38,12 @@ function envoyerDonnee(socket)
 	this.emit('donneeBouee', JSON.stringify("Les donnees des bouer seront ici!"));
 }
 
-
-
 function gererDeconnexion(connexion){
 	console.log("Une personne s'est deconnectee");
 	connexion.emit('adieu', JSON.stringify("Farewell my friend !"));
 }
 
-function enregisterDonnees() {
+/*function enregisterDonnees() {
 	MongoClient.connect(urlDb, { useNewUrlParser: true }, function (err, db) {
 
 		if (err) throw err;
@@ -55,6 +57,7 @@ function enregisterDonnees() {
 	})
 	lireDonnes();
 }
+*/
 
 function lireDonnes(){
 	MongoClient.connect(urlDb, { useNewUrlParser: true }, function(err, db) {
