@@ -1,31 +1,36 @@
-function DonneesDAO(donneesRecu){
+ this.DonneesDAO = function(){
 
-	donnees = this;
-	
-	this.id;
-	this.temperature;
-	this.salanity;
-	this.difraction;
 
 	function initialiser(){
 		console.log("initialiserDonneesDAO");
 		//this.donnees = donnees;
-		donnees.temperature = donneesRecu.temperature;
-		donnees.salanity = donneesRecu.salanity;
-		donnees.difraction = donneesRecu.difraction;
+		
+
+	}
+	this.EnregistrerDonneesBouee = function(donneesRecu)
+	{
+		var bouee;
+		bouee.temperature = donneesRecu.temperature;
+		bouee.salanity = donneesRecu.salanity;
+		bouee.difraction = donneesRecu.difraction;
+		bouee.position = donneesRecu.position
+		enregistrerDonnees;
 
 	}
 
 
-	this.enregistrerDonnees = function(){
+	function enregistrerDonnees(){
 		console.log("enregistrerDonnees");
 		console.log(donnees.temperature);
 
 	}
+	this.simulerBouees = function()
+	{
+		var bouees = [{temperature: 10.3, salanity: 0.002, difraction: 125, position: {lat: 47.2622455, long: -70.1082227 }}, {temperature: 8.45, salanity: 0.085, difraction: 105.23, position: {lat: 48.1597786, long: -66.1082227 } }]
+	}
 
 	initialiser();
 
-}
+};
 
 
-module.exports = DonneesDAO;
