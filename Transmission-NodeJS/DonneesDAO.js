@@ -1,4 +1,4 @@
- this.DonneesDAO = function(){
+ function DonneesDAO(){
 
 	var MongoClient = require('mongodb').MongoClient;
 	var urlDb = "mongodb://localhost:27017";
@@ -12,10 +12,21 @@
 	this.enregistrerDonneesBouee = function(donneesRecu)
 	{
 		var bouee;
-		bouee.temperature = donneesRecu.temperature;
-		bouee.salanity = donneesRecu.salanity;
-		bouee.difraction = donneesRecu.difraction;
-		bouee.position = donneesRecu.position;
+		bouee.temperatureAir = donneesRecu.temperatureAir;
+		bouee.temperatureEau = donneesRecu.temperatureEau;
+		bouee.directionVent = donneesRecu.directionVent;
+		bouee.kilometrageVent = donneesRecu.kilometrageVent;
+		bouee.hauteurMaximum = donneesRecu.hauteurMaximum;
+		bouee.vagueMoyenne = donneesRecu.vagueMoyenne;
+		bouee.periodeVague = donneesRecu.periodeVague;
+		bouee.humidite = donneesRecu.humidite;
+		bouee.rafales = donneesRecu.rafales;
+		bouee.salaniteEau = donneesRecu.salaniteEau;
+		bouee.densiteeEau = donneesRecu.densiteeEau;
+
+
+		
+
 		MongoClient.connect(urlDb, { useNewUrlParser: true }, function (err, db) {
 			if (err) throw err;
 			var dbo = db.db("Scientifique");
@@ -47,6 +58,8 @@
 
 	initialiser();
 
-};
+}
+module.exports = DonneesDAO;
+
 
 

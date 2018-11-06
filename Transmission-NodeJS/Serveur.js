@@ -1,10 +1,10 @@
 var http = require('http');
 var io = require('socket.io');
 DonneesDAO = require('./DonneesDAO.js');
-
+var donneesDao;
 
 function init() {
-
+	donneesDao = new DonneesDAO(); 
 	var serveur = http.createServer(function (requete, reponse) {
 		//reponse.writeHead(200);
 		//reponse.end('Valentin :@');
