@@ -3,8 +3,10 @@ var io = require('socket.io');
 DonneesDAO = require('./DonneesDAO.js');
 var MongoClient = require('mongodb').MongoClient;
 var urlDb = "mongodb://localhost:27017"
+var donneesDao = new DonneesDAO();
 
 function init() {
+
 	var serveur = http.createServer(function (requete, reponse) {
 		//reponse.writeHead(200);
 		//reponse.end('Valentin :@');
@@ -22,20 +24,32 @@ function gererConnexion(connexion) {
 	connexion.emit('salutation', JSON.stringify("Bonjour !"));
 	connexion.on('aaa', recupererDonneesCapteur);
 	connexion.on('envoyer-donnee', envoyerDonnee);
+	connexion.on('envoyer-position', envoyerPosition);
 }
 
 function recupererDonneesCapteur(connexion){
 	listeDonnees = JSON.parse(connexion);
 	for(var i = 0; i< listeDonnees.length; i++)
         {
-			var donnees = new DonneesDAO(listeDonnees[i]);
-			donnees.enregistrerDonnees();		
+			donneesDao.EnregistrerDonneesBouee(listeDonnees[i]);
+					
         }
 }
 
 function envoyerDonnee(socket)
 {
 	this.emit('donneeBouee', JSON.stringify("Les donnees des bouer seront ici!"));
+}
+function envoyerPosition(socket)
+{
+	var positions;
+	var i;
+	bouees = donneesDao.simulerBouees();
+	while (bouees.length =! i){
+	positions[i] = bouees[i].position;
+	}
+	
+	this.emit('positionBouee', positions);
 }
 
 function gererDeconnexion(connexion){
