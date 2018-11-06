@@ -19,7 +19,18 @@
 		MongoClient.connect(urlDb, { useNewUrlParser: true }, function (err, db) {
 			if (err) throw err;
 			var dbo = db.db("Scientifique");
-			var myobj = { temperature: bouee.temperature, salanity: bouee.salanity, difraction:bouee.difraction, latitude:bouee.position.lat, longitude:bouee.position.long };
+			var myobj = { temperatureAir: bouee.temperatureAir, 
+				temperatureEau: bouee.temperatureEau, 
+				directionVent: bouee.directionVent, 
+				kilometrageVent: bouee.kilometrageVent, 
+				hauteurMaximum: bouee.hauteurMaximum, 
+				vagueMoyenne: bouee.vagueMoyenne,
+				periodeVague: bouee.periodeVague,
+				humidite: bouee.humidite,
+				rafales: bouee.rafales,
+				salaniteEau: bouee.salaniteEau,
+				densiteeEau: bouee.densiteeEau
+			};
 			dbo.collection("bouee").insertOne(myobj, function (err, res) {
 				if (err) throw err;
 				console.log("1 document inserted");
