@@ -11,18 +11,18 @@
 
 	this.enregistrerDonneesBouee = function(donneesRecu)
 	{
-		var bouee;
-		bouee.temperatureAir = donneesRecu.temperatureAir;
-		bouee.temperatureEau = donneesRecu.temperatureEau;
-		bouee.directionVent = donneesRecu.directionVent;
-		bouee.kilometrageVent = donneesRecu.kilometrageVent;
-		bouee.hauteurMaximum = donneesRecu.hauteurMaximum;
-		bouee.vagueMoyenne = donneesRecu.vagueMoyenne;
-		bouee.periodeVague = donneesRecu.periodeVague;
-		bouee.humidite = donneesRecu.humidite;
-		bouee.rafales = donneesRecu.rafales;
-		bouee.salaniteEau = donneesRecu.salaniteEau;
-		bouee.densiteeEau = donneesRecu.densiteeEau;
+		console.log(donneesRecu);
+		temperatureAir = donneesRecu.temperatureAir;
+		temperatureEau = donneesRecu.temperatureEau;
+		directionVent = donneesRecu.directionVent;
+		kilometrageVent = donneesRecu.kilometrageVent;
+		hauteurMaximum = donneesRecu.hauteurMaximum;
+		vagueMoyenne = donneesRecu.vagueMoyenne;
+		periodeVague = donneesRecu.periodeVague;
+		humidite = donneesRecu.humidite;
+		rafales = donneesRecu.rafales;
+		salaniteEau = donneesRecu.salaniteEau;
+		densiteeEau = donneesRecu.densiteeEau;
 
 
 		
@@ -30,24 +30,24 @@
 		MongoClient.connect(urlDb, { useNewUrlParser: true }, function (err, db) {
 			if (err) throw err;
 			var dbo = db.db("Scientifique");
-			var myobj = { temperatureAir: bouee.temperatureAir, 
-				temperatureEau: bouee.temperatureEau, 
-				directionVent: bouee.directionVent, 
-				kilometrageVent: bouee.kilometrageVent, 
-				hauteurMaximum: bouee.hauteurMaximum, 
-				vagueMoyenne: bouee.vagueMoyenne,
-				periodeVague: bouee.periodeVague,
-				humidite: bouee.humidite,
-				rafales: bouee.rafales,
-				salaniteEau: bouee.salaniteEau,
-				densiteeEau: bouee.densiteeEau
+			var myobj = { temperatureAir: temperatureAir, 
+				temperatureEau: temperatureEau, 
+				directionVent: directionVent, 
+				kilometrageVent: kilometrageVent, 
+				hauteurMaximum: hauteurMaximum, 
+				vagueMoyenne: vagueMoyenne,
+				periodeVague: periodeVague,
+				humidite: humidite,
+				rafales: rafales,
+				salaniteEau: salaniteEau,
+				densiteeEau: densiteeEau
 			};
 			dbo.collection("bouee").insertOne(myobj, function (err, res) {
 				if (err) throw err;
 				console.log("1 document inserted");
 				db.close();
 			});
-		});
+		}); 
 
 	}
 	this.simulerBouees = function()

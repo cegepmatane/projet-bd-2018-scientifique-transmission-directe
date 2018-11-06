@@ -29,8 +29,8 @@ function recupererDonneesCapteur(connexion){
 	listeDonnees = JSON.parse(connexion);
 	for(var i = 0; i< listeDonnees.length; i++)
         {
-			console.log(listeDonnees[i].temperatureEau);
-			//donneesDao.enregistrerDonneesBouee(listeDonnees[i]);
+			console.log(listeDonnees[i].temperatureAir);
+			donneesDao.enregistrerDonneesBouee(listeDonnees[i]);
 					
         }
 }

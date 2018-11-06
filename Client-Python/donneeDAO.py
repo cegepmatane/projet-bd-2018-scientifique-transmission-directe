@@ -36,8 +36,8 @@ def recupererValeur():
         
         #curseurDestruction = collection.find()
         #collection.delete_many(curseurDestruction)
-        supprimerDonnee()
 
+        supprimerDonnee()
         return jsonData
         
     except Exception as e:
