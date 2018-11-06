@@ -1,8 +1,7 @@
 var http = require('http');
 var io = require('socket.io');
 DonneesDAO = require('./DonneesDAO.js');
-var MongoClient = require('mongodb').MongoClient;
-var urlDb = "mongodb://localhost:27017"
+
 var donneesDao = new DonneesDAO();
 
 function init() {
@@ -31,7 +30,7 @@ function recupererDonneesCapteur(connexion){
 	listeDonnees = JSON.parse(connexion);
 	for(var i = 0; i< listeDonnees.length; i++)
         {
-			donneesDao.EnregistrerDonneesBouee(listeDonnees[i]);
+			donneesDao.enregistrerDonneesBouee(listeDonnees[i]);
 					
         }
 }
