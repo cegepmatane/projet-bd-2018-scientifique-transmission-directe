@@ -2,7 +2,6 @@ var http = require('http');
 var io = require('socket.io');
 DonneesDAO = require('./DonneesDAO.js');
 
-var donneesDao = new DonneesDAO();
 
 function init() {
 
