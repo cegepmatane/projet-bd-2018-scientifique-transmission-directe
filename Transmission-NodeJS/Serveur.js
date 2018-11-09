@@ -1,17 +1,17 @@
 var http = require('http');
 var io = require('socket.io');
-var DonneesDAO = require('./DonneesDAO.js');
-var donneeDao; 
+DonneesDAO = require('./DonneesDAO.js');
+var donneesDao;
 
 function init() {
-
+	donneesDao = new DonneesDAO(); 
 	var serveur = http.createServer(function (requete, reponse) {
 		//reponse.writeHead(200);
 		//reponse.end('Valentin :@');
 	}).listen(8080);
 
 	console.log("Le serveur est en ligne !");
-	donneeDao = new DonneesDAO();
+
 	var priseEntreeSortie = io.listen(serveur);
 	priseEntreeSortie.on('connection', gererConnexion);
 	priseEntreeSortie.on('disconnect', gererDeconnexion);
@@ -29,8 +29,7 @@ function recupererDonneesCapteur(connexion){
 	listeDonnees = JSON.parse(connexion);
 	for(var i = 0; i< listeDonnees.length; i++)
         {
-			console.log(listeDonnees[i].temperatureAir);
-			donneeDao.enregistrerDonneesBouee(listeDonnees[i]);
+			donneesDao.enregistrerDonneesBouee(listeDonnees[i]);
 					
         }
 }
@@ -41,17 +40,12 @@ function envoyerDonnee(socket)
 }
 function envoyerPosition(socket)
 {
-	var positions = new Array();
-	//console.log(donneeDao);
-	bouees = donneeDao.bouees;
-	//console.log(bouees);
-	var i = 0;
-	
+	var positions;
+	var i;
+	bouees = donneesDao.simulerBouees();
 	while (bouees.length =! i){
 	positions[i] = bouees[i].position;
-	i++;
 	}
-	console.log(positions);
 	
 	this.emit('positionBouee', positions);
 }
