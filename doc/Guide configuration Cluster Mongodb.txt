@@ -1,0 +1,65 @@
+https://docs.mongodb.com/manual/tutorial/deploy-shard-cluster/
+
+Créer 3 serveurs config
+	mongo-config01 (192.168.56.10)
+	mongo-config02 (192.168.56.20)
+	mongo-config03 (192.168.56.30)
+
+Installer mongodb sur les 3 serveurs config
+	# apt install -y mongodb
+	
+Créer un replica config sur les 3 serveurs config
+	# mkdir /mongo-metadata
+	# mongod --configsvr --replSet replicaConfig --dbpath /mongo-metadata --bind_ip_all
+	
+Sur un serveur config 
+	# mongo --host 192.168.56.10 --port 27019
+	> rs.initiate(
+	  {
+		_id: "replicaConfig",
+		configsvr: true,
+		members: [
+		  { _id : 0, host : "192.168.56.10:27019" },
+		  { _id : 1, host : "192.168.56.20:27019" },
+		  { _id : 2, host : "192.168.56.30:27019" }
+		]
+	  }
+	)
+	
+Créer 1 (3 serait le mieux) serveur shard
+	mongo-shard01 (192.168.56.40)
+	
+Installer mongodb sur le serveur replica
+	# apt install -y mongodb
+
+Créer un replica shard sur le(s) serveur(s)
+	# mkdir /mongo-metadata
+	# mongod --shardsvr --replSet replicaShard  --dbpath /mongo-metadata --bind_ip_all
+
+Sur un serveur shard 
+	# mongo --host 192.168.56.40 --port 27018
+	> rs.initiate(
+	  {
+		_id : "replicaShard",
+		members: [
+		  { _id : 0, host : "192.168.56.40:27018" }
+		]
+	  }
+	)
+	
+Créer un server mongos
+	mongo-server01 (192.168.56.50)
+	
+Installer mongodb sur le serveur mongos
+	# apt install -y mongodb
+	
+Joindre le serveur mongos au replica config
+	# systemctl stop mongodb
+	# mongos --configdb replicaConfig/192.168.56.10:27019,192.168.56.10:27019,192.168.56.30:27019 --bind_ip_all
+
+Sur un server ouvrir le shell mongodb de mongos
+	# mongo --host 192.168.56.50 --port 27017
+	
+Ajouter le(s) shard au cluster
+	> sh.addShard("replicaShard/192.168.56.40:27018")
+	
