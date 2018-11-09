@@ -37,17 +37,8 @@ def recupererValeur():
         #curseurDestruction = collection.find()
         #collection.delete_many(curseurDestruction)
 
+        supprimerDonnee()
         return jsonData
-
-
-
-        for enregistrement in curseur :
-            #print(enregistrement)
-            resultString+=str(enregistrement) #formatage des donnees
-            
-        #curseur.close()
-            
-        return str(resultString)
         
     except Exception as e:
         print(e)
@@ -55,7 +46,7 @@ def recupererValeur():
 
 def supprimerDonnee():
         conn = MongoClient()
-        print("connected")
+        print("drop")
         db = conn.scientifique #selection de la base de donnee
         collection = db.donneeBouee #selection de la collection
     
