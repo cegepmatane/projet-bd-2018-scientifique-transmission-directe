@@ -63,3 +63,8 @@ Sur un server ouvrir le shell mongodb de mongos
 Ajouter le(s) shard au cluster
 	> sh.addShard("replicaShard/192.168.56.40:27018")
 	
+Activer le Sharding sur la Base de donnees
+	> sh.enableSharding("Scientifique")
+	
+Activer le Ranged Sharding
+	> sh.shardCollection("Scientifique.bouee", { idShard : 1 } )
