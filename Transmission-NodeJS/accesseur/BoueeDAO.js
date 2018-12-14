@@ -16,7 +16,7 @@ function BoueeDAO(emitteurBoueeDAO) {
 
 		let donnesASauvegarder = {
 			temperatureAir, temperatureEau, directionVent, kilometrageVent, hauteurMaximum,
-			vagueMoyenne, periodeVague, humidite, rafales, salaniteEau, densiteeEau, longitude, latitude
+			vagueMoyenne, periodeVague, humidite, rafales, salaniteEau, densiteeEau, longitude, latitude, idShard, date
 		} = donneesRecu;
 
 		MongoClient.connect(urlBaseDeDonnees, { useNewUrlParser: true }, function (erreur, connexionBaseDeDonnees) {
