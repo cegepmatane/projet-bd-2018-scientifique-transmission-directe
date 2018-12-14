@@ -40,13 +40,9 @@ function gererConnexion(connexion) {
 }
 
 // Les donnees recu par les bouees en direct ou en differees sont ajouter a la BD mongodb
-function recupererDonneesCapteur(donnees) {
-	listeDonnee = JSON.parse(donnees);
-
-	lireDonnes.array.forEach(element => {
-		console.log(element.temperatureAir);
-		boueeDAO.ajouter(element);
-	});
+function recupererDonneesCapteur(donneesJSON) {
+	donnees = JSON.parse(donneesJSON);
+	boueeDAO.ajouter(donnees);
 }
 
 // Une requete pour les infos afin dafficher les marqueurs dans l'app electron

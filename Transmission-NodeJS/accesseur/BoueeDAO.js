@@ -4,27 +4,20 @@ function BoueeDAO(emitteurBoueeDAO) {
 
 	const { urlBaseDeDonnees, NOM_BASE_DE_DONNEES, NOM_COLLECTION } = require('./InformationsMongoDB');
 
-	let bouees;
-
 	function initialiser() {
 		console.log("initialiserDonneesDAO");
 	}
 
 	// Ajout basique d'une bouees dans la bd mongodb
 	this.ajouter = function (donneesRecu) {
-		console.log(donneesRecu);
-
-		let donnesASauvegarder = {
-			temperatureAir, temperatureEau, directionVent, kilometrageVent, hauteurMaximum,
-			vagueMoyenne, periodeVague, humidite, rafales, salaniteEau, densiteeEau, longitude, latitude, idShard, date
-		} = donneesRecu;
+		console.log("BoueeDAO.ajouter() " + donneesRecu);
 
 		MongoClient.connect(urlBaseDeDonnees, { useNewUrlParser: true }, function (erreur, connexionBaseDeDonnees) {
 			if (erreur)
 				throw erreur;
 
 			var baseDeDonnees = connexionBaseDeDonnees.db(NOM_BASE_DE_DONNEES);
-			baseDeDonnees.collection(NOM_COLLECTION).insertOne(donnesASauvegarder, function (erreur, reponse) {
+			baseDeDonnees.collection(NOM_COLLECTION).insertOne(donneesRecu, function (erreur, reponse) {
 				if (erreur)
 					throw erreur;
 
