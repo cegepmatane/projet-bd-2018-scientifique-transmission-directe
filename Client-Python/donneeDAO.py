@@ -1,53 +1,46 @@
-from pymongo import MongoClient
-from pprint import pprint
+import sqlite3
+import datetime
 import json
 
-def insererValeur(json):
-    try : 
-        conn = MongoClient() #connection a la base mongodb
-        print("connected")
+global json
 
-        db = conn.scientifique #selection de la base de donnee
-        collection = db.donneeBouee #selection de la collection
-        print("get collection")
-
-        #insert json
-        result = collection.insert(json) #insertion du json
-        print("inserted ")
-
-    except:
-        print("error")
-        
-        
-def recupererValeur():
-    try : 
-        conn = MongoClient()
-        print("connected")
-
-        db = conn.scientifique #selection de la base de donnee
-        collection = db.donneeBouee #selection de la collection
-
-        curseur = collection.find({}, {'_id': False}) #recuperation de toutes les donnees de la collection
-        resultString="" 
-        l = list(curseur)
-        jsonData = json.dumps(l)
-        print("jsonData")
-        print(jsonData)
-        
-        #curseurDestruction = collection.find()
-        #collection.delete_many(curseurDestruction)
-
-        supprimerDonnee()
-        return jsonData
-        
-    except Exception as e:
-        print(e)
-        return e
-
-def supprimerDonnee():
-        conn = MongoClient()
-        print("drop")
-        db = conn.scientifique #selection de la base de donnee
-        collection = db.donneeBouee #selection de la collection
+def insererValeurDifferee(temperatureAir,temperatureEau,directionVent,kilometrageVent,hauteurMaximum,vagueMoyenne,periodeVague,humidite,rafales,salaniteEau,densiteeEau,longitude,latitude,idShard,date):
     
-        collection.drop() #suppression des donnees en local
+    connection = sqlite3.connect("bouee.db") #connection a la bd bouee sqlite3 sur le raspberry
+    curseur = connection.cursor()
+    curseur.execute('''INSERT INTO donneeBouee(temperatureAir,temperatureEau,directionVent,vitesseVent,hauteurMaximum,vagueMoyenne,periodeVague,humidite,rafales,saliniteEau,densiteeEau,longitude,latitude,idShard, date) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)''',(temperatureAir,temperatureEau,directionVent,kilometrageVent,hauteurMaximum,vagueMoyenne,periodeVague,humidite,rafales,salaniteEau,densiteeEau,longitude,latitude,idShard, date))
+
+    connection.commit()
+    connection.close()
+        
+        
+def recupererValeurDifferee():
+
+    connection = sqlite3.connect("bouee.db") #connection a la bd bouee sqlite3 sur le raspberry
+    print("connecte")
+
+    connection.row_factory = sqlite3.Row
+
+    curseur = connection.cursor()
+    resultat = curseur.execute('''SELECT temperatureAir,temperatureEau,directionVent,vitesseVent,hauteurMaximum,vagueMoyenne,periodeVague,humidite,rafales,saliniteEau,densiteeEau,longitude,latitude,idShard,date FROM donneeBouee''').fetchall()
+
+    """for row in curseur:
+    row[0] returns the first column in the query (name), row[1] returns email column.
+        print('{0} : {1}, {2}, {3}, {4}, {5}, {6}, {7}, {8}, {9}, {10}, {11}, {12}, {13}, {14}'.format(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8], row[9], row[10], row[11], row[12], row[13], row[14]))"""
+
+    curseur.execute('''DELETE FROM donneeBouee''')
+    connection.commit()
+    connection.close()
+
+    donneeJson = ""
+    donneeJson = json.dumps([dict(ix) for ix in resultat] )
+    print(donneeJson)
+
+def recupererValeurDirect(jsonDonnee):
+    json = jsonDonnee
+    print(json)    
+
+def envoyerValeurDirect():
+    return json
+
+    
