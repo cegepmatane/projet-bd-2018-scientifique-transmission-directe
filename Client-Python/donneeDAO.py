@@ -1,8 +1,9 @@
 import sqlite3
 import datetime
 import json
+from socketIO_client_nexus import SocketIO, LoggingNamespace
 
-global json
+jsonValeur = ""
 
 def insererValeurDifferee(temperatureAir,temperatureEau,directionVent,kilometrageVent,hauteurMaximum,vagueMoyenne,periodeVague,humidite,rafales,salaniteEau,densiteeEau,longitude,latitude,idShard,date):
     
@@ -36,11 +37,27 @@ def recupererValeurDifferee():
     donneeJson = json.dumps([dict(ix) for ix in resultat] )
     print(donneeJson)
 
-def recupererValeurDirect(jsonDonnee):
-    json = jsonDonnee
-    print(json)    
 
-def envoyerValeurDirect():
-    return json
+def envoyerValeurDirect(jsonDonnee):
+    global jsonValeur
+    jsonValeur = jsonDonnee
+    print(jsonValeur)
+
+    connection = SocketIO('vps202433.vps.ovh.ca', 8080, LoggingNamespace)
+    #connection = SocketIO('vps202845.vps.ovh.ca', 8080, LoggingNamespace)
+    connection.on('salutation', lors_connection)
+    connection.on('donnee_recu',on_send)  
+
+    connection.emit('emission-donnees-bouee', jsonValeur) #envoie du json
+
+    print("sent")
+    connection.disconnect()   
+    
+
+def lors_connection(msg):
+	print(json.loads(msg))
+
+def on_send():
+    print("data sent")
 
     
