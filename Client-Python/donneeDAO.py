@@ -9,7 +9,7 @@ def insererValeurDifferee(temperatureAir,temperatureEau,directionVent,kilometrag
     
     connection = sqlite3.connect("bouee.db") #connection a la bd bouee sqlite3 sur le raspberry
     curseur = connection.cursor()
-    curseur.execute('''INSERT INTO donneeBouee(temperatureAir,temperatureEau,directionVent,vitesseVent,hauteurMaximum,vagueMoyenne,periodeVague,humidite,rafales,saliniteEau,densiteeEau,longitude,latitude,idShard, date) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)''',(temperatureAir,temperatureEau,directionVent,kilometrageVent,hauteurMaximum,vagueMoyenne,periodeVague,humidite,rafales,salaniteEau,densiteeEau,longitude,latitude,idShard, date))
+    curseur.execute('''INSERT INTO donneeBouee(temperatureAir,temperatureEau,directionVent,kilometrageVent,hauteurMaximum,vagueMoyenne,periodeVague,humidite,rafales,saliniteEau,densiteeEau,longitude,latitude,idShard, date) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)''',(temperatureAir,temperatureEau,directionVent,kilometrageVent,hauteurMaximum,vagueMoyenne,periodeVague,humidite,rafales,salaniteEau,densiteeEau,longitude,latitude,idShard, date))
 
     connection.commit()
     connection.close()
@@ -23,7 +23,7 @@ def recupererValeurDifferee():
     connection.row_factory = sqlite3.Row
 
     curseur = connection.cursor()
-    resultat = curseur.execute('''SELECT temperatureAir,temperatureEau,directionVent,vitesseVent,hauteurMaximum,vagueMoyenne,periodeVague,humidite,rafales,saliniteEau,densiteeEau,longitude,latitude,idShard,date FROM donneeBouee''').fetchall()
+    resultat = curseur.execute('''SELECT temperatureAir,temperatureEau,directionVent,kilometrageVent,hauteurMaximum,vagueMoyenne,periodeVague,humidite,rafales,saliniteEau,densiteeEau,longitude,latitude,idShard,date FROM donneeBouee''').fetchall()
 
     """for row in curseur:
     row[0] returns the first column in the query (name), row[1] returns email column.
