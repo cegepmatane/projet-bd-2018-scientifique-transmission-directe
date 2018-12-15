@@ -33,6 +33,7 @@ function gererConnexion(connexion) {
 
 	// Requete recu par le(s) bouee(s)
 	connexion.on('emission-donnees-bouee', recupererDonneesCapteur);
+	connexion.on('deverser-donnees-bouee', deverserDonneesCapteur);
 
 	// Requete de l'application electron
 	connexion.on('requete-donnees-marqueurs', demanderDonneesPourMarqueurs);
@@ -43,6 +44,13 @@ function gererConnexion(connexion) {
 function recupererDonneesCapteur(donneesJSON) {
 	donnees = JSON.parse(donneesJSON);
 	boueeDAO.ajouter(donnees);
+}
+
+function deverserDonneesCapteur(donneesJSON){
+	listeDonnees = JSON.parse(donneesJSON)
+	listeDonnees.forEach(donnees => {
+		boueeDAO.ajouter(donnees);
+	});
 }
 
 // Une requete pour les infos afin dafficher les marqueurs dans l'app electron
