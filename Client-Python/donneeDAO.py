@@ -35,7 +35,7 @@ def recupererValeurDifferee():
 
     donneeJson = ""
     donneeJson = json.dumps([dict(ix) for ix in resultat] )
-    print(donneeJson)
+    return(donneeJson)
 
 
 def envoyerValeurDirect(jsonDonnee):
